@@ -1,0 +1,26 @@
+---
+-
+  become: true
+  hosts: all
+  tasks:
+      -
+        name: "apt-get update"
+        raw: "apt-get update -qq"
+      -
+        name: "Install python 2.7"
+        raw: "apt-get install -qq python2.7"
+      -
+        apt: "name={{ item }} state=latest"
+        name: "Install software"
+        with_items:
+          - tree
+          - git
+          - dstat
+          - nmap
+          - curl
+          - wget
+          - ansible
+          - fish
+      -
+        name: chsh
+        command: sudo chsh ubuntu -s /usr/bin/fish
